@@ -9,27 +9,26 @@ module.exports = {
   ],
   theme: {
     extend: {
-      system: {
+      colors: {
         green: {
-          default: 'var(--green)',
-          dark: 'var(--green-dark)',
-          light: 'var(--green-light)',
+          default: 'rgba(var(--green), <alpha-value>)',
+          dark: 'rgba(var(--green-dark), <alpha-value>)',
+          light: 'rgba(var(--green-light), <alpha-value>)',
         },
         red: {
-          default: 'var(--red)',
-          dark: 'var(--red-dark)',
+          default: 'rgba(var(--red), <alpha-value>)',
+          dark: 'rgba(var(--red-dark), <alpha-value>)',
         },
         gray: {
-          background: 'var(--gray-background)',
-          elements: 'var(--gray-elements)',
-          divider: 'var(--gray-divider)',
-          placeholder: 'var(--gray-placeholder)',
-          label: 'var(--gray-label)',
-          text: 'var(--gray-text)',
-          title: 'var(--gray-title)',
+          background: 'rgba(var(--gray-background), <alpha-value>)',
+          elements: 'rgba(var(--gray-elements), <alpha-value>)',
+          divider: 'rgba(var(--gray-divider), <alpha-value>)',
+          placeholder: 'rgba(var(--gray-placeholder), <alpha-value>)',
+          label: 'rgba(var(--gray-label), <alpha-value>)',
+          text: 'rgba(var(--gray-text), <alpha-value>)',
+          title: 'rgba(var(--gray-title), <alpha-value>)',
         },
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
 }
