@@ -22,6 +22,7 @@ module.exports = {
         gray: {
           background: 'rgba(var(--gray-background), <alpha-value>)',
           elements: 'rgba(var(--gray-elements), <alpha-value>)',
+          count: 'rgba(var(--gray-count), <alpha-value>)',
           divider: 'rgba(var(--gray-divider), <alpha-value>)',
           placeholder: 'rgba(var(--gray-placeholder), <alpha-value>)',
           label: 'rgba(var(--gray-label), <alpha-value>)',
