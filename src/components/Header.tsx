@@ -12,7 +12,7 @@ export default function Header() {
     'text-2xl p-3 border-y-[3px] border-y-gray-elements hover:border-b-green-default'
 
   return (
-    <header className="w-full my-10">
+    <header className="w-full mt-10">
       <div className="flex items-center justify-between px-10">
         <div>
           <Image height={40} src={logo} alt="Hourglass" />
