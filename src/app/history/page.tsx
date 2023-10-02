@@ -2,8 +2,8 @@ export default function History() {
   return (
     <main className="flex flex-col w-full h-full text-gray-title px-4 sm:px-8 md:px-12 lg:px-24 pb-10 lg:pb-0 leading-6">
       <h1 className="text-2xl font-bold pt-12">Meu Histórico</h1>
-      <section className="block max-h-60 w-full pt-8">
-        <table className="table table-fixed min-w-full lg:h-3/4 lg:rounded-t-lg overflow-hidden">
+      <section className="pt-8">
+        <table className="table table-auto min-w-full lg:h-3/4 lg:rounded-t-lg overflow-hidden">
           <thead className="hidden lg:table-header-group bg-gray-divider border-b-4 border-gray-elements whitespace-nowrap">
             <tr className="text-left font-bold">
               <th scope="col" className="py-4 px-6 w-1/2">
@@ -20,7 +20,7 @@ export default function History() {
               </th>
             </tr>
           </thead>
-          <tbody className="divide-y-4 divide-gray-elements overflow-y-auto whitespace-nowrap">
+          <tbody className="divide-y-4 divide-gray-elements max-h-10 overflow-auto whitespace-nowrap">
             <tr className="lg:divide-y-0 bg-gray-count text-left divide-y-2 divide-gray-divider rounded-lg lg:rounded-none">
               <td
                 data-label="Tarefa"
