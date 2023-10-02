@@ -8,7 +8,7 @@
   --green-dark: 1, 95, 67;
   --green-light: 0, 179, 126;
   --red: 171, 34, 46;
-  --red-dark: 122, 25, 33, 1;
+  --red-dark: 122, 25, 33;
   --gray-background: 18, 18, 20;
   --gray-elements: 32, 32, 36;
   --gray-count: 41, 41, 46;
@@ -28,9 +28,9 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #888;
+  background: rgb(171, 34, 46);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: rgba(122, 25, 33);
 }
