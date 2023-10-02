@@ -51,7 +51,7 @@ export default function Home() {
           <div className={`${robotoMono.className} flex py-16 lg:gap-4 gap-2`}>
             <span className={`${countStyle} bg-gray-count`}>0</span>
             <span className={`${countStyle} bg-gray-count`}>0</span>
-            <span className={`${countStyle} text-`}>:</span>
+            <span className={`${countStyle} text-red-default`}>:</span>
             <span className={`${countStyle} bg-gray-count`}>0</span>
             <span className={`${countStyle} bg-gray-count`}>0</span>
           </div>
