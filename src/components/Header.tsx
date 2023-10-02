@@ -9,7 +9,7 @@ export default function Header() {
   const pathname = usePathname()
 
   const linkStyle =
-    'text-3xl p-3 border-y-[3px] border-y-gray-elements hover:border-b-green-default'
+    'text-3xl p-3 border-y-[3px] border-y-gray-elements hover:border-b-red-default'
 
   return (
     <header className="w-full mt-10">
@@ -24,7 +24,7 @@ export default function Header() {
           <Link
             href="/"
             className={`${linkStyle} ${
-              pathname === '/' ? 'text-green-default' : 'text-gray-title'
+              pathname === '/' ? 'text-red-default' : 'text-gray-title'
             }`}
           >
             <PiTimerLight />
@@ -32,7 +32,7 @@ export default function Header() {
           <Link
             href="/history"
             className={`${linkStyle} ${
-              pathname === '/history' ? 'text-green-default' : 'text-white'
+              pathname === '/history' ? 'text-red-default' : 'text-white'
             }`}
           >
             <PiScrollLight />
