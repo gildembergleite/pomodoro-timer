@@ -16,9 +16,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body
-        className={`${roboto.className} flex w-full h-screen justify-center items-center bg-gray-background`}
+        className={`${roboto.className} flex w-full h-screen justify-center items-center bg-gray-background md:px-10`}
       >
-        <div className="flex flex-col justify-start items-center w-full h-5/6 max-w-6xl bg-gray-elements rounded-lg">
+        <div className="flex flex-col justify-start items-center w-full h-screen md:h-5/6 max-w-6xl bg-gray-elements md:rounded-lg">
           <Header />
           {children}
         </div>

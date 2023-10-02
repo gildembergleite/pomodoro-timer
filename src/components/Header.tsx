@@ -13,7 +13,7 @@ export default function Header() {
 
   return (
     <header className="w-full mt-10">
-      <div className="flex items-center justify-between px-10">
+      <div className="flex items-center justify-between px-4 md:px-10">
         <div>
           <Image height={40} src={logo} alt="Hourglass" />
         </div>
