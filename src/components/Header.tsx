@@ -9,19 +9,22 @@ export default function Header() {
   const pathname = usePathname()
 
   const linkStyle =
-    'text-2xl p-3 border-y-[3px] border-y-gray-elements hover:border-b-green-default'
+    'text-3xl p-3 border-y-[3px] border-y-gray-elements hover:border-b-green-default'
 
   return (
     <header className="w-full mt-10">
       <div className="flex items-center justify-between px-4 md:px-10">
-        <div>
+        <Link href="/" className="flex items-center gap-2">
           <Image height={40} src={logo} alt="Hourglass" />
-        </div>
+          <h1 className="font-bold text-xl md:text-3xl lg:text-3xl text-gray-title">
+            Pomodoro Timer
+          </h1>
+        </Link>
         <div className="flex gap-3">
           <Link
             href="/"
             className={`${linkStyle} ${
-              pathname === '/' ? 'text-green-default' : 'text-white'
+              pathname === '/' ? 'text-green-default' : 'text-gray-title'
             }`}
           >
             <PiTimerLight />
