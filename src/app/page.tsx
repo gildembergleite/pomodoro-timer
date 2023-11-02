@@ -76,7 +76,7 @@ export default function Home() {
     reset()
   }
 
-  function handleInterruptCycle() {
+  function interruptCycle() {
     setCycles(
       cycles.map((cycle) => {
         if (cycle.id !== activeCycleId) {
@@ -165,7 +165,11 @@ export default function Home() {
             </span>
           </div>
 
-          <Button disabled={isSubmitDisabled} started={!!activeCycle} />
+          <Button
+            onInterruptCycle={interruptCycle}
+            disabled={isSubmitDisabled}
+            started={!!activeCycle}
+          />
         </form>
       </section>
     </main>
