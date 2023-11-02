@@ -14,7 +14,7 @@ export default function Header() {
   return (
     <header className="w-full mt-10">
       <div className="flex items-center justify-between px-4 md:px-10">
-        <Link href="/" className="flex justify-center items-end gap-2">
+        <Link href="/" className="flex justify-center items-center gap-3">
           <Image width={42} height={42} src={logo} alt="Hourglass" />
           <h1 className="font-bold text-xl md:text-3xl lg:text-3xl text-gray-title">
             Pomodoro Timer
