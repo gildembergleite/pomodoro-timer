@@ -50,6 +50,37 @@ export default function Home() {
       resolver: zodResolver(newCycleFormSchema),
     })
 
+  function onSubmit(data: NewCycleFormDataProps) {
+    const id = String(new Date().getTime())
+
+    const newCycle: CycleProps = {
+      id,
+      task: data.task,
+      minutes: data.minutes,
+      startDate: new Date(),
+    }
+
+    setCycles((state) => [...state, newCycle])
+    setActiveCycleId(id)
+    setAmountSecondsPassed(0)
+
+    reset()
+  }
+
+  function interruptCycle() {
+    setCycles((state) =>
+      state.map((cycle) => {
+        if (cycle.id !== activeCycleId) {
+          return { ...cycle, interruptedDate: new Date() }
+        } else {
+          return cycle
+        }
+      }),
+    )
+    document.title = `Pomodoro Timer`
+    setActiveCycleId(null)
+  }
+
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>
 
@@ -83,37 +114,6 @@ export default function Home() {
       clearInterval(interval)
     }
   }, [activeCycle, totalSeconds, activeCycleId])
-
-  function onSubmit(data: NewCycleFormDataProps) {
-    const id = String(new Date().getTime())
-
-    const newCycle: CycleProps = {
-      id,
-      task: data.task,
-      minutes: data.minutes,
-      startDate: new Date(),
-    }
-
-    setCycles((state) => [...state, newCycle])
-    setActiveCycleId(id)
-    setAmountSecondsPassed(0)
-
-    reset()
-  }
-
-  function interruptCycle() {
-    setCycles((state) =>
-      state.map((cycle) => {
-        if (cycle.id !== activeCycleId) {
-          return { ...cycle, interruptedDate: new Date() }
-        } else {
-          return cycle
-        }
-      }),
-    )
-    document.title = `Pomodoro Timer`
-    setActiveCycleId(null)
-  }
 
   useEffect(() => {
     if (activeCycle) {
