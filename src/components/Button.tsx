@@ -2,15 +2,10 @@ import { PiPlayFill, PiStop } from 'react-icons/pi'
 
 interface ButtonProps {
   started: boolean
-  disabled: boolean
   onInterruptCycle: Function
 }
 
-export default function Button({
-  started,
-  disabled,
-  onInterruptCycle,
-}: ButtonProps) {
+export default function Button({ started, onInterruptCycle }: ButtonProps) {
   function handleInterruptCycle() {
     onInterruptCycle()
   }
@@ -18,7 +13,6 @@ export default function Button({
     <button
       onClick={handleInterruptCycle}
       type="submit"
-      disabled={disabled && !started}
       className={`
         flex w-full justify-center items-center gap-2 py-4 px-10 rounded-lg 
         disabled:opacity-75 disabled:cursor-not-allowed
