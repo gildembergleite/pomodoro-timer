@@ -1,15 +1,11 @@
-import { CycleProps } from '@/app/page'
-import { UseFormRegister } from 'react-hook-form'
+import { CyclesContext } from '@/app/page'
+import { useContext } from 'react'
+import { useFormContext } from 'react-hook-form'
 
-interface FormInputProps {
-  register: UseFormRegister<{
-    task: string
-    minutes: number
-  }>
-  activeCycle: CycleProps | undefined
-}
+export default function FormInputs() {
+  const { activeCycle } = useContext(CyclesContext)
+  const { register } = useFormContext()
 
-export default function FormInputs({ register, activeCycle }: FormInputProps) {
   return (
     <div className="flex flex-col text-2xl sm:text-3xl lg:text-lg lg:flex-row w-full items-center gap-2">
       <label htmlFor="task">Vou trabalhar em:</label>

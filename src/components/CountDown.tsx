@@ -2,14 +2,14 @@
 // eslint-disable-next-line camelcase
 import { Roboto_Mono } from 'next/font/google'
 import { CyclesContext } from '@/app/page'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect } from 'react'
 import { differenceInSeconds as calcDifferenceInSeconds } from 'date-fns'
 
 const robotoMono = Roboto_Mono({ subsets: ['latin'], weight: ['700'] })
 
 export default function CountDown() {
-  const { activeCycle, markCurrentCycleAsFinished } = useContext(CyclesContext)
-  const [amountSecondsPassed, setAmountSecondsPassed] = useState(0)
+  const { activeCycle, markCurrentCycleAsFinished, amountSecondsPassed } =
+    useContext(CyclesContext)
   const totalSeconds = activeCycle ? activeCycle.minutes * 60 : 0
 
   const currentSeconds = activeCycle ? totalSeconds - amountSecondsPassed : 0
@@ -30,12 +30,13 @@ export default function CountDown() {
           activeCycle.startDate,
         )
         if (differenceInSeconds >= totalSeconds) {
-          markCurrentCycleAsFinished()
-          setAmountSecondsPassed(totalSeconds)
+          const isCycleFinished = true
+          markCurrentCycleAsFinished(isCycleFinished, totalSeconds)
           clearInterval(interval)
           document.title = `Pomodoro Timer`
         } else {
-          setAmountSecondsPassed(differenceInSeconds)
+          const isCycleFinished = false
+          markCurrentCycleAsFinished(isCycleFinished, differenceInSeconds)
         }
       }, 1000)
     }
