@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/Header'
+import { CyclesContextProvider } from '@/context/CyclesContext'
 
 const roboto = Roboto({ subsets: ['latin'], weight: ['400', '700'] })
 
@@ -20,7 +21,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       >
         <div className="flex flex-col justify-start items-center w-full h-full lg:h-5/6 max-w-6xl lg:bg-gray-elements lg:rounded-lg">
           <Header />
-          {children}
+          <CyclesContextProvider>{children}</CyclesContextProvider>
         </div>
       </body>
     </html>

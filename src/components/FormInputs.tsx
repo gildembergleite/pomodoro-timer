@@ -1,4 +1,4 @@
-import { CyclesContext } from '@/app/page'
+import { CyclesContext } from '@/context/CyclesContext'
 import { useContext } from 'react'
 import { useFormContext } from 'react-hook-form'
 

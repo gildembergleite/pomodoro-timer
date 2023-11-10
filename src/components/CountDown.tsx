@@ -1,9 +1,9 @@
 'use client'
 // eslint-disable-next-line camelcase
 import { Roboto_Mono } from 'next/font/google'
-import { CyclesContext } from '@/app/page'
 import { useContext, useEffect } from 'react'
 import { differenceInSeconds as calcDifferenceInSeconds } from 'date-fns'
+import { CyclesContext } from '@/context/CyclesContext'
 
 const robotoMono = Roboto_Mono({ subsets: ['latin'], weight: ['700'] })
 
