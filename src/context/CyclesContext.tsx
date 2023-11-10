@@ -16,6 +16,7 @@ export interface CycleProps {
 }
 
 interface CyclesContextProps {
+  cycles: CycleProps[]
   activeCycle: CycleProps | undefined
   amountSecondsPassed: number
   activeCycleId: string | null
@@ -89,6 +90,7 @@ export function CyclesContextProvider({ children }: { children: ReactNode }) {
   return (
     <CyclesContext.Provider
       value={{
+        cycles,
         activeCycle,
         activeCycleId,
         amountSecondsPassed,
