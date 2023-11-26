@@ -30,7 +30,7 @@ export default function FormInputs() {
           className="w-20 p-2 bg-gray-elements border-gray-placeholder focus:border-gray-title border-b-2 focus:outline-none text-center"
           placeholder="00"
           max={60}
-          min={1}
+          min={5}
           step={5}
           type="number"
           id="minutes"
