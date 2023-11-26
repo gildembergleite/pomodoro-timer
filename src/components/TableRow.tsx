@@ -13,7 +13,11 @@ export default function TableRow({ cycle }: TableRowProps) {
     minute: 'numeric',
   }).format(cycle.startDate)
 
-  const statusColor = cycle.finishedDate ? 'bg-green-500' : 'bg-amber-500'
+  const statusColor = cycle.finishedDate
+    ? 'bg-green-500'
+    : cycle.interruptedDate
+    ? 'bg-red-500'
+    : 'bg-amber-500'
 
   return (
     <tr className="lg:divide-y-0 bg-gray-count text-left divide-y-2 divide-gray-divider rounded-lg lg:rounded-none">
@@ -43,7 +47,11 @@ export default function TableRow({ cycle }: TableRowProps) {
         <span
           className={`${statusColor} inline-block w-2 h-2 mr-2 mb-[2px] rounded-full`}
         ></span>
-        {cycle.finishedDate ? 'Concluído' : 'Interrompido'}
+        {cycle.interruptedDate
+          ? 'Interrompido'
+          : cycle.finishedDate
+          ? 'Concluído'
+          : 'Em andamento'}
       </td>
     </tr>
   )
