@@ -1,12 +1,12 @@
 'use client'
-import { ReactNode, createContext, useState } from 'react'
+import { ReactNode, createContext, useReducer, useState } from 'react'
 
-interface CycleFormDataProps {
+interface CycleFormData {
   task: string
   minutes: number
 }
 
-export interface CycleProps {
+export interface Cycle {
   id: string
   task: string
   minutes: number
@@ -15,76 +15,96 @@ export interface CycleProps {
   finishedDate?: Date
 }
 
-interface CyclesContextProps {
-  cycles: CycleProps[]
-  activeCycle: CycleProps | undefined
+interface CycleContext {
+  cycles: Cycle[]
+  activeCycle: Cycle | undefined
   amountSecondsPassed: number
   activeCycleId: string | null
-  markCurrentCycleAsFinished: (
-    isCycleFinished: boolean,
-    seconds: number,
-  ) => void
+  setAmountSecondsPassed: (seconds: number) => void
+  markCurrentCycleAsFinished: () => void
   interruptCurrentCycle: () => void
-  createNewCycle: (data: CycleFormDataProps) => void
+  createNewCycle: (data: CycleFormData) => void
 }
 
-export const CyclesContext = createContext({} as CyclesContextProps)
+interface CyclesState {
+  cycles: Cycle[]
+  activeCycleId: string | null
+}
+
+export const CyclesContext = createContext({} as CycleContext)
 
 export function CyclesContextProvider({ children }: { children: ReactNode }) {
-  const [cycles, setCycles] = useState<CycleProps[]>([])
-  const [activeCycleId, setActiveCycleId] = useState<string | null>(null)
+  const [cyclesState, dispatch] = useReducer(
+    (state: CyclesState, action: any) => {
+      if (action.type === 'ADD_NEW_CYCLE') {
+        return {
+          ...state,
+          cycles: [...state.cycles, action.payload.newCycle],
+          activeCycleId: action.payload.newCycle.id,
+        }
+      }
+      if (action.type === 'INTERRUPT_CURRENT_CYCLE') {
+        return {
+          ...state,
+          cycles: state.cycles.map((cycle) => {
+            if (cycle.id === state.activeCycleId) {
+              return { ...cycle, interruptedDate: new Date() }
+            } else {
+              return cycle
+            }
+          }),
+          activeCycleId: null,
+        }
+      }
+      if (action.type === 'MARK_CURRENT_CYCLE_AS_FINISHED') {
+        return {
+          ...state,
+          cycles: state.cycles.map((cycle) => {
+            if (cycle.id === state.activeCycleId) {
+              return { ...cycle, finishedDate: new Date() }
+            } else {
+              return cycle
+            }
+          }),
+          activeCycleId: null,
+        }
+      }
+      return state
+    },
+    {
+      cycles: [],
+      activeCycleId: null,
+    },
+  )
   const [amountSecondsPassed, setAmountSecondsPassed] = useState(0)
 
+  const { cycles, activeCycleId } = cyclesState
   const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId)
 
-  function markCurrentCycleAsFinished(
-    isCycleFinished: boolean,
-    seconds: number,
-  ) {
-    if (isCycleFinished) {
-      setCycles((state) =>
-        state.map((cycle) => {
-          if (cycle.id !== activeCycleId) {
-            return { ...cycle, finishedDate: new Date() }
-          } else {
-            return cycle
-          }
-        }),
-      )
-      setActiveCycleId(null)
-      setAmountSecondsPassed(seconds)
-    } else {
-      setAmountSecondsPassed(seconds)
-    }
-  }
-
-  function createNewCycle(data: CycleFormDataProps) {
+  function createNewCycle(data: CycleFormData) {
     const id = String(new Date().getTime())
 
-    const newCycle: CycleProps = {
+    const newCycle: Cycle = {
       id,
       task: data.task,
       minutes: data.minutes,
       startDate: new Date(),
     }
 
-    setCycles((state) => [...state, newCycle])
-    setActiveCycleId(id)
+    dispatch({ type: 'ADD_NEW_CYCLE', payload: { newCycle } })
     setAmountSecondsPassed(0)
   }
 
   function interruptCurrentCycle() {
-    setCycles((state) =>
-      state.map((cycle) => {
-        if (cycle.id !== activeCycleId) {
-          return { ...cycle, interruptedDate: new Date() }
-        } else {
-          return cycle
-        }
-      }),
-    )
+    dispatch({ type: 'INTERRUPT_CURRENT_CYCLE', payload: { activeCycleId } })
     document.title = `Pomodoro Timer`
-    setActiveCycleId(null)
+  }
+
+  function markCurrentCycleAsFinished() {
+    dispatch({
+      type: 'MARK_CURRENT_CYCLE_AS_FINISHED',
+      payload: { activeCycleId },
+    })
   }
 
   return (
@@ -94,6 +114,7 @@ export function CyclesContextProvider({ children }: { children: ReactNode }) {
         activeCycle,
         activeCycleId,
         amountSecondsPassed,
+        setAmountSecondsPassed,
         markCurrentCycleAsFinished,
         interruptCurrentCycle,
         createNewCycle,

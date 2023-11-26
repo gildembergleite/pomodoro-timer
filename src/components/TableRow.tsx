@@ -1,7 +1,7 @@
-import { CycleProps } from '@/context/CyclesContext'
+import { Cycle } from '@/context/CyclesContext'
 
 interface TableRowProps {
-  cycle: CycleProps
+  cycle: Cycle
 }
 
 export default function TableRow({ cycle }: TableRowProps) {

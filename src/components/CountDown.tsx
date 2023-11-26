@@ -8,8 +8,12 @@ import { CyclesContext } from '@/context/CyclesContext'
 const robotoMono = Roboto_Mono({ subsets: ['latin'], weight: ['700'] })
 
 export default function CountDown() {
-  const { activeCycle, markCurrentCycleAsFinished, amountSecondsPassed } =
-    useContext(CyclesContext)
+  const {
+    activeCycle,
+    markCurrentCycleAsFinished,
+    amountSecondsPassed,
+    setAmountSecondsPassed,
+  } = useContext(CyclesContext)
   const totalSeconds = activeCycle ? activeCycle.minutes * 60 : 0
 
   const currentSeconds = activeCycle ? totalSeconds - amountSecondsPassed : 0
@@ -30,13 +34,12 @@ export default function CountDown() {
           activeCycle.startDate,
         )
         if (differenceInSeconds >= totalSeconds) {
-          const isCycleFinished = true
-          markCurrentCycleAsFinished(isCycleFinished, totalSeconds)
+          markCurrentCycleAsFinished()
+          setAmountSecondsPassed(totalSeconds)
           clearInterval(interval)
           document.title = `Pomodoro Timer`
         } else {
-          const isCycleFinished = false
-          markCurrentCycleAsFinished(isCycleFinished, differenceInSeconds)
+          setAmountSecondsPassed(differenceInSeconds)
         }
       }, 1000)
     }
@@ -44,7 +47,7 @@ export default function CountDown() {
     return () => {
       clearInterval(interval)
     }
-  }, [activeCycle, markCurrentCycleAsFinished, totalSeconds])
+  }, [activeCycle, totalSeconds])
 
   useEffect(() => {
     if (activeCycle) {
