@@ -1,4 +1,4 @@
-import { Cycle } from '@/context/CyclesContext'
+import { Cycle } from '@/@types/Cycle'
 
 interface TableRowProps {
   cycle: Cycle
@@ -11,7 +11,7 @@ export default function TableRow({ cycle }: TableRowProps) {
     day: 'numeric',
     hour: 'numeric',
     minute: 'numeric',
-  }).format(cycle.startDate)
+  }).format(new Date(cycle.startDate))
 
   const statusColor = cycle.finishedDate
     ? 'bg-green-500'
