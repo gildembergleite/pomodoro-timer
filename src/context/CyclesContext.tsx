@@ -8,7 +8,13 @@ import {
   interruptCurrentCycleAction,
   markCurrentCycleAsFinishedAction,
 } from '@/reducers/cycles/actions'
-import { ReactNode, createContext, useReducer, useState } from 'react'
+import {
+  ReactNode,
+  createContext,
+  useEffect,
+  useReducer,
+  useState,
+} from 'react'
 
 export const CyclesContext = createContext({} as CycleContext)
 
@@ -19,6 +25,11 @@ export function CyclesContextProvider({ children }: { children: ReactNode }) {
   })
 
   const [amountSecondsPassed, setAmountSecondsPassed] = useState(0)
+
+  useEffect(() => {
+    const stateJSON = JSON.stringify(cyclesState)
+    localStorage.setItem('@pomodoro-timer:cycles-history', stateJSON)
+  }, [cyclesState])
 
   const { cycles, activeCycleId } = cyclesState
   const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId)

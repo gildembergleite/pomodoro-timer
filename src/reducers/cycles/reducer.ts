@@ -1,5 +1,5 @@
-import { ActionType } from '@/@types/Actions'
 import { Cycle } from '@/@types/Cycle'
+import { ActionType } from './actions'
 
 interface CyclesState {
   cycles: Cycle[]
