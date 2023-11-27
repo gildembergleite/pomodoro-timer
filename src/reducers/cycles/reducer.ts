@@ -1,3 +1,4 @@
+import { ActionType } from '@/@types/Actions'
 import { Cycle } from '@/@types/Cycle'
 
 interface CyclesState {
@@ -6,7 +7,7 @@ interface CyclesState {
 }
 
 export default function cycleReducer(state: CyclesState, action: any) {
-  if (action.type === 'ADD_NEW_CYCLE') {
+  if (action.type === ActionType.ADD_NEW_CYCLE) {
     return {
       ...state,
       cycles: [...state.cycles, action.payload.newCycle],
@@ -14,18 +15,21 @@ export default function cycleReducer(state: CyclesState, action: any) {
     }
   }
 
-  if (action.type === 'INTERRUPT_CURRENT_CYCLE') {
+  if (action.type === ActionType.INTERRUPT_CURRENT_CYCLE) {
     return {
       ...state,
-      cycles: [
-        ...state.cycles,
-        getCycleById(state.cycles, state.activeCycleId),
-      ],
+      cycles: state.cycles.map((cycle) => {
+        if (cycle.id === state.activeCycleId) {
+          return { ...cycle, interruptedDate: new Date() }
+        } else {
+          return cycle
+        }
+      }),
       activeCycleId: null,
     }
   }
 
-  if (action.type === 'MARK_CURRENT_CYCLE_AS_FINISHED') {
+  if (action.type === ActionType.MARK_CURRENT_CYCLE_AS_FINISHED) {
     return {
       ...state,
       cycles: state.cycles.map((cycle) => {
@@ -39,14 +43,4 @@ export default function cycleReducer(state: CyclesState, action: any) {
     }
   }
   return state
-}
-
-function getCycleById(cycles: Cycle[], activeCycleId: string | null) {
-  cycles.map((cycle) => {
-    if (cycle.id === activeCycleId) {
-      return { ...cycle, interruptedDate: new Date() }
-    } else {
-      return cycle
-    }
-  })
 }
